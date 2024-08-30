@@ -1,9 +1,28 @@
 function AddCoffee() {
+  // Handler to handle add coffee form
+  const addCoffeeHandler = (event) => {
+    event.preventDefault();
+
+    const form = event.target;
+
+    const name = form.name.value;
+    const chef = form.chef.value;
+    const supplier = form.supplier.value;
+    const taste = form.taste.value;
+    const category = form.category.value;
+    const details = form.details.value;
+    const photo = form.photo.value;
+
+    const newCoffee = { name, chef, supplier, taste, category, details, photo };
+
+    console.log(newCoffee);
+  };
+
   return (
     <>
       <h1 className="text-center text-2xl font-semibold">Add a coffee</h1>
       <div className="w-[50%] mx-auto">
-        <form>
+        <form onSubmit={addCoffeeHandler}>
           <div className="flex justify-between gap-3">
             <label className="form-control w-full max-w-xs">
               <div className="label">
@@ -12,6 +31,7 @@ function AddCoffee() {
               <input
                 type="text"
                 placeholder="Type here"
+                name="name"
                 className="input input-bordered w-full max-w-xs"
               />
             </label>
@@ -22,6 +42,7 @@ function AddCoffee() {
               <input
                 type="text"
                 placeholder="Type here"
+                name="chef"
                 className="input input-bordered w-full max-w-xs"
               />
             </label>
@@ -33,6 +54,7 @@ function AddCoffee() {
               </div>
               <input
                 type="text"
+                name="supplier"
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
               />
@@ -43,6 +65,7 @@ function AddCoffee() {
               </div>
               <input
                 type="text"
+                name="taste"
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
               />
@@ -55,6 +78,7 @@ function AddCoffee() {
               </div>
               <input
                 type="text"
+                name="category"
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
               />
@@ -65,6 +89,7 @@ function AddCoffee() {
               </div>
               <input
                 type="text"
+                name="details"
                 placeholder="Type here"
                 className="input input-bordered w-full max-w-xs"
               />
@@ -77,17 +102,19 @@ function AddCoffee() {
               </div>
               <input
                 type="text"
+                name="photo"
                 placeholder="Type here"
                 className="input input-bordered w-full  "
               />
             </label>
           </div>
-          <div className="bg-green-800 text-white w-full p-3 text-center rounded-lg mt-3 cursor-pointer hover:bg-green-900 transition">
-            <button>Submit</button>
+          <div>
+            <button className="bg-green-800 text-white w-full p-3 text-center rounded-lg mt-3 cursor-pointer hover:bg-green-900 transition">
+              Add Coffee
+            </button>
           </div>
         </form>
       </div>
-      ;
     </>
   );
 }
