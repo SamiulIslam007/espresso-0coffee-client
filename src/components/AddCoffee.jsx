@@ -1,6 +1,6 @@
 function AddCoffee() {
   // Handler to handle add coffee form
-  const addCoffeeHandler = (event) => {
+  const addCoffeeHandler = async (event) => {
     event.preventDefault();
 
     const form = event.target;
@@ -16,6 +16,24 @@ function AddCoffee() {
     const newCoffee = { name, chef, supplier, taste, category, details, photo };
 
     console.log(newCoffee);
+    // Send coffee data to the server
+
+    fetch("http://localhost:5000/coffee", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newCoffee),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          alert("Coffee added successfully...");
+        }
+      });
+
+    form.reset();
   };
 
   return (
@@ -109,9 +127,11 @@ function AddCoffee() {
             </label>
           </div>
           <div>
-            <button className="bg-green-800 text-white w-full p-3 text-center rounded-lg mt-3 cursor-pointer hover:bg-green-900 transition">
-              Add Coffee
-            </button>
+            <input
+              className="bg-green-800 text-white w-full p-3 text-center rounded-lg mt-3 cursor-pointer hover:bg-green-900 transition"
+              type="submit"
+              value="Add a coffee"
+            />
           </div>
         </form>
       </div>
