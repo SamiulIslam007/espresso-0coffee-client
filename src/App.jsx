@@ -1,11 +1,13 @@
- 
+import { useLoaderData } from "react-router-dom";
 
-function App() { 
+function App() {
+  const coffees = useLoaderData();
+
   return (
-    <> 
-    <p className='mt-8 ml-10'>Hello everyone, this is samiul islam joy.....</p>
+    <>
+      <h1 className="text-3xl text-center">I have {coffees.length} coffees.</h1>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
