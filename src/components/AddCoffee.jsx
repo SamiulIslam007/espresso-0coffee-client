@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 function AddCoffee() {
   // Handler to handle add coffee form
   const addCoffeeHandler = async (event) => {
@@ -29,7 +30,11 @@ function AddCoffee() {
       .then((data) => {
         console.log(data);
         if (data.insertedId) {
-          alert("Coffee added successfully...");
+          Swal.fire({
+            title: "Good job!",
+            text: "Coffee added successfully",
+            icon: "success",
+          });
         }
       });
 
