@@ -5,11 +5,13 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AddCoffee from "./components/AddCoffee.jsx";
 import UpdateCoffee from "./components/UpdateCoffee.jsx";
+import ErrorPage from "./components/ErrorPage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
     loader: () => fetch("http://localhost:5000/coffee"),
   },
   {
@@ -18,8 +20,9 @@ const router = createBrowserRouter([
     // element: <div>This is add coffee</div>
   },
   {
-    path: "/updatecoffee",
+    path: "/updatecoffee/:id",
     element: <UpdateCoffee></UpdateCoffee>,
+    loader: ({ params }) => fetch(`http://localhost:5000/coffee/${params.id}`),
   },
 ]);
 
