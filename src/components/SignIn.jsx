@@ -29,7 +29,7 @@ const SignIn = () => {
         };
 
         // request
-        fetch("http://localhost:5000/users", {
+        fetch("https://coffee-server-self.vercel.app/users", {
           method: "PATCH",
           headers: {
             "content-type": "application/json",

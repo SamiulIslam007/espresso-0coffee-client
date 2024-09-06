@@ -22,7 +22,7 @@ const Coffee = ({ coffee, setCoffees, coffees }) => {
         //   text: "Your file has been deleted.",
         //   icon: "success",
         // });
-        fetch(`http://localhost:5000/coffee/${_id}`, {
+        fetch(`https://coffee-server-self.vercel.app/coffee/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

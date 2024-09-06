@@ -20,7 +20,7 @@ const SignUp = () => {
         const creationTime = result.user?.metadata?.creationTime;
         const user = { email, creationTime };
         console.log(user);
-        fetch("http://localhost:5000/register", {
+        fetch("https://coffee-server-self.vercel.app/register", {
           method: "POST",
           headers: {
             "content-type": "application/json",
