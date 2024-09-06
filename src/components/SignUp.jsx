@@ -1,6 +1,7 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useContext } from "react";
 import { AuthContext } from "./provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
   const { createUser, loading } = useContext(AuthContext);
@@ -15,9 +16,9 @@ const SignUp = () => {
     createUser(email, password)
       .then((result) => {
         console.log(result.user);
-        const userEmail = result.user?.email;
+        const email = result.user?.email;
         const creationTime = result.user?.metadata?.creationTime;
-        const user = { userEmail, creationTime };
+        const user = { email, creationTime };
         console.log(user);
         fetch("http://localhost:5000/register", {
           method: "POST",
@@ -27,13 +28,24 @@ const SignUp = () => {
           body: JSON.stringify(user),
         })
           .then((res) => res.json())
-          .then((data) => console.log(data))
+          .then((data) => {
+            console.log(data);
+            Swal.fire({
+              title: "Success!",
+              text: "SignUp Successfull",
+              icon: "success",
+            });
+            form.reset();
+          })
           .catch((e) =>
             console.log("Error when inserting data to the database", e)
           );
       })
       .catch((e) =>
-        console.log("error occured when creating user for signup", e)
+        console.log(
+          "error occured when creating user for signup using firebase",
+          e
+        )
       );
   };
 
