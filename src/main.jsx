@@ -9,32 +9,69 @@ import ErrorPage from "./components/ErrorPage.jsx";
 import SignUp from "./components/SignUp.jsx";
 import SignIn from "./components/SignIn.jsx";
 import AuthProvider from "./components/provider/AuthProvider.jsx";
+import Users from "./components/Users.jsx";
+import Layout from "./components/layout/Layout.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Layout />,
     errorElement: <ErrorPage />,
-    loader: () => fetch("http://localhost:5000/coffee"),
+    // loader: () => fetch("http://localhost:5000/coffee"),
+    children: [
+      {
+        path: "/",
+        element: <App />,
+        loader: () => fetch("http://localhost:5000/coffee"),
+      },
+      {
+        path: "/addcoffee",
+        element: <AddCoffee />,
+      },
+      {
+        path: "/updatecoffee/:id",
+        element: <UpdateCoffee></UpdateCoffee>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/coffee/${params.id}`),
+      },
+      {
+        path: "/signup",
+        element: <SignUp />,
+      },
+      {
+        path: "/signin",
+        element: <SignIn />,
+      },
+      {
+        path: "/users",
+        element: <Users />,
+        loader: () => fetch("http://localhost:5000/users"),
+      },
+    ],
   },
-  {
-    path: "/addcoffee",
-    element: <AddCoffee />,
-    // element: <div>This is add coffee</div>
-  },
-  {
-    path: "/updatecoffee/:id",
-    element: <UpdateCoffee></UpdateCoffee>,
-    loader: ({ params }) => fetch(`http://localhost:5000/coffee/${params.id}`),
-  },
-  {
-    path: "/signup",
-    element: <SignUp />,
-  },
-  {
-    path: "/signin",
-    element: <SignIn />,
-  },
+  // {
+  //   path: "/addcoffee",
+  //   element: <AddCoffee />,
+  //   // element: <div>This is add coffee</div>
+  // },
+  // {
+  //   path: "/updatecoffee/:id",
+  //   element: <UpdateCoffee></UpdateCoffee>,
+  //   loader: ({ params }) => fetch(`http://localhost:5000/coffee/${params.id}`),
+  // },
+  // {
+  //   path: "/signup",
+  //   element: <SignUp />,
+  // },
+  // {
+  //   path: "/signin",
+  //   element: <SignIn />,
+  // },
+  // {
+  //   path: "/users",
+  //   element: <Users />,
+  //   loader: () => fetch("http://localhost:5000/users"),
+  // },
 ]);
 
 createRoot(document.getElementById("root")).render(

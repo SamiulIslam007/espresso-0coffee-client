@@ -1,6 +1,10 @@
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useContext } from "react";
+import { AuthContext } from "./provider/AuthProvider";
 
 const SignUp = () => {
+  const { createUser, loading } = useContext(AuthContext);
+
   const signUpHandler = (e) => {
     e.preventDefault();
 
@@ -8,12 +12,25 @@ const SignUp = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    const auth = getAuth();
-
-    createUserWithEmailAndPassword(auth, email, password)
+    createUser(email, password)
       .then((result) => {
         console.log(result.user);
-        alert("signup successful");
+        const userEmail = result.user?.email;
+        const creationTime = result.user?.metadata?.creationTime;
+        const user = { userEmail, creationTime };
+        console.log(user);
+        fetch("http://localhost:5000/register", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(user),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data))
+          .catch((e) =>
+            console.log("Error when inserting data to the database", e)
+          );
       })
       .catch((e) =>
         console.log("error occured when creating user for signup", e)
